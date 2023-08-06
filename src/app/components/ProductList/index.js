@@ -86,7 +86,7 @@ const ProductList = () => {
                   {
                     carts.map((cart) => cart.id).includes(productList.id)
                       ? <Button 
-                          onClick={() => handleRemove(productList.id)}
+                          onClick={() => handleRemove(productList.id, 'id')}
                             type="remove"
                         > 
                             Remove from cart

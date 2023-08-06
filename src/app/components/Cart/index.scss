@@ -1,4 +1,6 @@
 .table {
+  width: 100%;
+  overflow: scroll;
   &__table-list {
     border-collapse: collapse;
     width: 100%;

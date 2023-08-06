@@ -28,14 +28,15 @@ const LayoutWrapper = () => {
     }
     setCarts([addUuid, ...carts])
   };
-  console.log(carts, 'carts');
 
-  const handleRemove = (uuidv4) => {
-    console.log(uuidv4, 'uuidv4');
-    console.log(carts, 'carts carts')
-    const remove = carts.filter((cart) => cart.uuid !== uuidv4);
-    console.log(remove, 'remove')
-    setCarts(remove)
+  const handleRemove = (identifier, type) => {
+    if(type === 'id') {
+      const remove = carts.filter((cart) => cart.id !== identifier);
+      setCarts(remove)
+    } else {
+      const remove = carts.filter((cart) => cart.uuid !== identifier);
+      setCarts(remove)
+    }
   };
 
   const values = {
