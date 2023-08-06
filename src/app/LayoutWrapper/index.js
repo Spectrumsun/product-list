@@ -3,7 +3,6 @@ import Navbar from '../components/NavBar';
 import ProductLists from '../components/ProductList';
 import Cart from '../components/Cart';
 import Button from '../components/Button';
-import Loading from '../loading';
 
 import './index.scss';
 
@@ -39,13 +38,14 @@ const LayoutWrapper = () => {
     handleAddCart: handleAddCart,
     setScreen: setScreen,
     setCatchRequest,
+    screen,
   }
 
   const NoMatch = () => {
     return (
       <div className="section__notfound">
         <h1>No match for your search</h1>
-        <Button type="success">Clear chat</Button>
+        <Button type="success" onClick={handleClearSearch}>Clear Search</Button>
       </div>
     )
   }
@@ -82,58 +82,60 @@ const LayoutWrapper = () => {
     }
   }
 
-
-
   return (
     <Context.Provider value={values}>
       <Navbar />
       <section className="section">
-        <section className="section__options">
-          <div className="section__sort">
-            <p>Sort by:</p>
-            <button 
-              className={`section__sort-button section__lowest ${sortBy === 'lowest' ? 'section__lowest-active' : ''}`}
-              onClick={() => handleSort('lowest')}
-            >
-              <p>Lowest Price</p>
-            </button>
-            <button 
-              className={`section__sort-button section__highest ${sortBy === 'highest' ? 'section__highest-active' : ''}`}
-              onClick={() => handleSort('highest')}
-            >
-              <p>Highest Price</p>
-            </button>
-          </div>
-
-          <div className="section__search">
-            <input 
-              placeholder="Search"
-              className="section__input"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-            {
-              search.length !== 0
-              ? <Button type="success" onClick={handleClearSearch}>
-                  X
-                  </Button>
-              : null
-            }
-            <Button 
-              type="success"
-              onClick={handleSearch}
-            >
-              Search by name
-            </Button>
-          </div>
-        </section>
-        {setCurrentScreen[screen]}
+        {
+          screen === 'product'
+            ? <section className="section__options">
+                <div className="section__sort">
+                  <p>Sort by:</p>
+                  <button 
+                    className={`section__sort-button section__lowest ${sortBy === 'lowest' ? 'section__lowest-active' : ''}`}
+                    onClick={() => handleSort('lowest')}
+                  >
+                  <p>Lowest Price</p>
+                  </button>
+                  <button 
+                    className={`section__sort-button section__highest ${sortBy === 'highest' ? 'section__highest-active' : ''}`}
+                    onClick={() => handleSort('highest')}
+                  >
+                  <p>Highest Price</p>
+                </button>
+              </div>
+              <div className="section__search">
+                <input 
+                  placeholder="Search"
+                  className="section__input"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                />
+                {
+                  search.length !== 0
+                  ? <Button type="success" onClick={handleClearSearch}>
+                      X
+                      </Button>
+                  : null
+                }
+                <Button 
+                  type="success"
+                  onClick={handleSearch}
+                >
+                  Search by name
+                </Button>
+              </div>
+            </section>
+          : null
+          }
+        {
+          search.length !== 0 && productLists.length === 0
+          ? <NoMatch />
+          : setCurrentScreen[screen]}
       </section>
     </Context.Provider>
   )
 };
-
-
 
 export default LayoutWrapper;
 
