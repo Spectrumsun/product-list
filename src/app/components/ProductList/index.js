@@ -61,7 +61,7 @@ const ProductList = () => {
                 <div className="cards__texts">
                   <span className="cards__name-container">
                     <p className="cards__title">
-                      {productList.brand}: {productList.title}
+                      Name: {productList.title}
                     </p>
                     <span className="cards__name">
                       <StatSvg />
