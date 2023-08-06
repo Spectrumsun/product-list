@@ -11,7 +11,6 @@ const Navbar = () => {
       <button  onClick={() => setScreen('product')} className="header__button">
         <h1 className="header__h1">Product App</h1>
       </button>
-      
       {
         screen === 'product'
           ?  <Button 

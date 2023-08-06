@@ -34,6 +34,7 @@ const Cart = () =>  {
     carts.length === 0
     ? <EmptyState />
     : <div className='table'>
+      <h1>Total item in cart: {carts.length}</h1>
       <table className="table__table-list">
         <thead>
           <tr>

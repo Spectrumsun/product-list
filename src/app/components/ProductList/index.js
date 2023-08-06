@@ -64,12 +64,16 @@ const ProductList = () => {
                   </p>
                 </div>
                 <div className='cards__button-wrapper'>
-                  <Button
-                    onClick={() => handleAddCart(productList)}
-                    type="success"
-                  >
-                    Add to cart
-                  </Button>
+                  {
+                    !carts.map((cart) => cart.id).includes(productList.id)
+                    ? <Button
+                        onClick={() => handleAddCart(productList)}
+                        type="success"
+                      >
+                        Add to cart
+                      </Button>
+                  : null
+                  }
                   {
                     carts.map((cart) => cart.id).includes(productList.id)
                       ? <Button 
