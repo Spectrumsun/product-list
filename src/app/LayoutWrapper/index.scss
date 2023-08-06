@@ -60,4 +60,11 @@
   &__highest-active {
     background-color: #3498DB;
   }
+
+  &__notfound {
+    text-align: center;
+    justify-self: center;
+    width: 100%;
+    font-size: 30px;
+  }
 }

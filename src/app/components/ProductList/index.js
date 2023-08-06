@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Carousel from '../Carousel';
 import StatSvg from '../Svg/Start';
 import { money, url } from '../../helper';
 import { useDataContext } from '@/app/LayoutWrapper';
 import Button from '../Button';
+import Loading from '../../loading';
+
 import './index.scss';
 
-
 const ProductList = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const values = useDataContext();
   const { 
     productLists,
@@ -15,17 +17,21 @@ const ProductList = () => {
     handleAddCart,
     handleRemove,
     setProductLists,
+    setCatchRequest,
   } = values;
 
   useEffect(() => {
+    setIsLoaded(true);
     const getData = async() => {
       try {
         const res = await fetch(`${url}/product` );
         const data = await res.json();
         setProductLists(data.products);
+        setCatchRequest(data.products);
+        setIsLoaded(false);
         return data;
       }catch(e) {
-        console.log(e, 'e')
+        setIsLoaded(false);
         throw new Error('Failed to fetch data');
       }
     }
@@ -33,50 +39,56 @@ const ProductList = () => {
   },[]);
 
   return (
-    <div className="cards">
+    <>
       {
-        productLists.map((productList, index) => (
-          <div className="cards__content" key={index}>
-            <Carousel images={productList.images} /> 
-            <div className="cards__wrapper">
-              <div className="cards__texts">
-                <span className="cards__name-container">
-                  <p className="cards__title">
-                    {productList.brand}: {productList.title}
-                  </p>
-                  <span className="cards__name">
-                    <StatSvg />
-                    <p>{productList.rating}</p>
+        isLoaded 
+          ? <div className="cards__loading-wrapper"><Loading /></div>
+          : <div className="cards">
+            {
+            productLists?.map((productList, index) => (
+              <div className="cards__content" key={index}>
+                <Carousel images={productList.images} /> 
+                <div className="cards__wrapper">
+                <div className="cards__texts">
+                  <span className="cards__name-container">
+                    <p className="cards__title">
+                      {productList.brand}: {productList.title}
+                    </p>
+                    <span className="cards__name">
+                      <StatSvg />
+                      <p>{productList.rating}</p>
+                    </span>
                   </span>
-                </span>
-                <p className="cards__title">
-                  Price: ₦{money.format(productList.price)}
-                </p>
-              </div>
-              <div className='cards__button-wrapper'>
-                <Button
-                  onClick={() => handleAddCart(productList)}
-                  type="success"
-                >
-                  Add to cart
-                </Button>
-                {
-                  carts.map((cart) => cart.id).includes(productList.id)
-                    ? <Button 
-                        onClick={() => handleRemove(productList.id)}
-                        type="remove"
-                      >
-                        Remove from cart
-                      </Button>
-                    : null
-                }
+                  <p className="cards__title">
+                    Price: ₦{money.format(productList.price)}
+                  </p>
                 </div>
-              </div>
-            </div>
-          )
-        )
+                <div className='cards__button-wrapper'>
+                  <Button
+                    onClick={() => handleAddCart(productList)}
+                    type="success"
+                  >
+                    Add to cart
+                  </Button>
+                  {
+                    carts.map((cart) => cart.id).includes(productList.id)
+                      ? <Button 
+                          onClick={() => handleRemove(productList.id)}
+                            type="remove"
+                        > 
+                            Remove from cart
+                        </Button>
+                        : null
+                      }
+                    </div>
+                  </div>
+                </div>
+              )
+            )
+          }
+        </div>
       }
-    </div>
+    </>
   )
 };
 

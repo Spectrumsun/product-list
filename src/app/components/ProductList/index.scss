@@ -72,4 +72,10 @@
   &__dec {
     margin: 15px 0px;
   }
+
+  &__loading-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 }

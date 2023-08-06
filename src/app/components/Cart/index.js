@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { money } from '../../helper';
 import { useDataContext } from "../../LayoutWrapper";
 import Button from '../Button';
+
 import './index.scss';
 
 const Cart = () =>  {
@@ -37,7 +38,7 @@ const Cart = () =>  {
         <thead>
           <tr>
             <th>Title</th>
-            <th>Description</th>
+            {/* <th>Description</th> */}
             <th>Price</th>
             <th>Thumbnail</th>
             <th>Interest</th>
@@ -49,7 +50,7 @@ const Cart = () =>  {
               return (
                 <tr key={index}>
                   <td>{cart.title}</td>
-                  <td>{cart.description}</td>
+                  {/* <td>{cart.description}</td> */}
                   <td>₦{money.format(cart.price)}</td>
                   <td>
                     <Image
@@ -70,14 +71,13 @@ const Cart = () =>  {
           }
           <tr>
             <td></td>
-            <td></td>
             <td>Total Price</td>
             <td>
               ₦{money.format(carTotal)}
             </td>
             <td>
               <Button type="success">
-                Checkout
+                Checkout {carts.length} Items
               </Button>
             </td>
           </tr>

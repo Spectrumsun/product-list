@@ -3,6 +3,8 @@ import Navbar from '../components/NavBar';
 import ProductLists from '../components/ProductList';
 import Cart from '../components/Cart';
 import Button from '../components/Button';
+import Loading from '../loading';
+
 import './index.scss';
 
 const Context = createContext();
@@ -12,12 +14,11 @@ export function useDataContext() {
 }
 
 const LayoutWrapper = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [productLists, setProductLists] = useState([]);
   const [carts, setCarts] = useState([]);
   const [screen, setScreen] = useState('product');
   const [search, setSearch] = useState('');
-  const [refetch, setRefetch] = useState([]);
+  const [catchRequest, setCatchRequest] = useState([]);
   const [sortBy, setSortBy] = useState('');
   
   const handleAddCart = (add) => {
@@ -37,6 +38,16 @@ const LayoutWrapper = () => {
     handleRemove: handleRemove,
     handleAddCart: handleAddCart,
     setScreen: setScreen,
+    setCatchRequest,
+  }
+
+  const NoMatch = () => {
+    return (
+      <div className="section__notfound">
+        <h1>No match for your search</h1>
+        <Button type="success">Clear chat</Button>
+      </div>
+    )
   }
 
   const setCurrentScreen =  {
@@ -49,13 +60,12 @@ const LayoutWrapper = () => {
     if(value.length === 0) return;
     const smallCase = value.toLowerCase();
     const filter = productLists.filter((productList) => productList.title.toLowerCase().includes(smallCase));
-    setRefetch(productLists);
     setProductLists(filter);
   };
 
-  const handleClearSearch = () => {
+  const handleClearSearch = async () => {
     setSearch('');
-    setProductLists(refetch);
+    setProductLists(catchRequest);
   };
 
   const handleSort = (type) => {
@@ -71,6 +81,8 @@ const LayoutWrapper = () => {
       setProductLists(sortByPrice)
     }
   }
+
+
 
   return (
     <Context.Provider value={values}>
