@@ -7,11 +7,32 @@ import './index.scss';
 
 const Cart = () =>  {
   const values = useDataContext();
-  const { carts, handleRemove } = values;
+  const { carts, handleRemove, setScreen } = values;
   const carTotal = carts.reduce((prev, curr) =>  prev + curr.price, 0);
-
+  const EmptyState = () => {
+    return (
+      <div className="table__empty">
+        <Image 
+          src="/cat.gif"
+          alt="Empty cart"
+          width={500}
+          height={500}
+        />
+        <h1>Your cart is Empty</h1>
+        <p>Looks like you have not added anything to your cart. Go ahead & explore the product</p>
+        <Button 
+          type="success" 
+          onClick={() => setScreen('product')}
+        >
+          Go to Product
+        </Button>
+      </div>
+    )
+  }
   return (
-    <div className='table'>
+    carts.length === 0
+    ? <EmptyState />
+    : <div className='table'>
       <table className="table__table-list">
         <thead>
           <tr>
@@ -50,7 +71,7 @@ const Cart = () =>  {
           <tr>
             <td></td>
             <td></td>
-            <td>Total</td>
+            <td>Total Price</td>
             <td>
               ₦{money.format(carTotal)}
             </td>

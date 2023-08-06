@@ -16,7 +16,6 @@ const ProductList = () => {
     handleRemove,
     setProductLists,
   } = values;
-  console.log(values, 'Product');
 
   useEffect(() => {
     const getData = async() => {

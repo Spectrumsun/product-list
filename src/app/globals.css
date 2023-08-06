@@ -28,8 +28,3 @@ ul {
 li {
   list-style: none;
 }
-
-.section-wrapper {
-  max-width: 70%;
-  margin: 50px auto;
-}
