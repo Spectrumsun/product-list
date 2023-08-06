@@ -18,6 +18,7 @@ const ProductList = () => {
     handleRemove,
     setProductLists,
     setCatchRequest,
+    setScreen,
   } = values;
 
   useEffect(() => {
@@ -40,6 +41,14 @@ const ProductList = () => {
 
   return (
     <>
+    <div className="floating">
+      <Button 
+        type="success"
+        onClick={() => setScreen('cart')}
+      >
+        Cart items: {carts.length}
+      </Button>
+    </div>
       {
         isLoaded 
           ? <div className="cards__loading-wrapper"><Loading /></div>

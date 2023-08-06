@@ -3,7 +3,7 @@
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 40px;
   padding-bottom: 30px;
-  
+  position: relative;
   
   &__item {
     padding: 20px;
@@ -81,5 +81,23 @@
 
   @media screen and (max-width: 425px) {
     grid-template-columns: 1fr;
+  }
+}
+
+.floating {
+  position: fixed;
+  left: 0px;
+  z-index: 2;
+  button {
+    font-size: 18px;
+    width: 150px;
+    transition: width .5s ease-in-out;
+  }
+
+}
+
+.floating-update {
+  button {
+    width: 180px;
   }
 }

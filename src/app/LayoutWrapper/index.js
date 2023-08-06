@@ -45,7 +45,12 @@ const LayoutWrapper = () => {
     return (
       <div className="section__notfound">
         <h1>No match for your search</h1>
-        <Button type="success" onClick={handleClearSearch}>Clear Search</Button>
+        <Button 
+          type="success" 
+          onClick={handleClearSearch}
+        >
+          Clear Search
+        </Button>
       </div>
     )
   }

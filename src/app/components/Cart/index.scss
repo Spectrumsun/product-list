@@ -13,7 +13,6 @@
   tr {
     background-color: #2B3035;
     color: #ddd;
-
   }
 
   tr:hover {
@@ -40,5 +39,41 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+  }
+  
+  &__total {
+    margin-top: 30px;
+    background-color: #2B3035;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    width: fit-content;
+    align-items: initial;
+    h1 {
+      padding: 10px;
+    }
+  }
+
+  &__quan {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px
+  }
+
+  &__add {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  &__add-icon {
+    color: green;
+  }
+
+  &__remove-icon {
+    color: red;
   }
 }

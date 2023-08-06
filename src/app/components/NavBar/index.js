@@ -5,7 +5,7 @@ import './index.scss';
 const Navbar = () => {
   const values = useDataContext();
   const { carts, setScreen, screen } = values;
-  console.log( screen === 'product', 'screen', screen)
+
   return (
     <header className="header">
       <button  onClick={() => setScreen('product')} className="header__button">

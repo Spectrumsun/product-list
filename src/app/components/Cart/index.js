@@ -8,8 +8,17 @@ import './index.scss';
 
 const Cart = () =>  {
   const values = useDataContext();
-  const { carts, handleRemove, setScreen } = values;
+  const { 
+    carts, 
+    handleRemove, 
+    setScreen, 
+    handleAddCart,
+  } = values;
+
+  const currentIds = carts.map((cart) => cart.id);
   const carTotal = carts.reduce((prev, curr) =>  prev + curr.price, 0);
+  const showInCard = carts.filter((cart, index) => !currentIds.includes(cart.id, index +1));
+
   const EmptyState = () => {
     return (
       <div className="table__empty">
@@ -39,19 +48,17 @@ const Cart = () =>  {
         <thead>
           <tr>
             <th>Title</th>
-            {/* <th>Description</th> */}
             <th>Price</th>
             <th>Thumbnail</th>
-            <th>Interest</th>
+            <th>Quantity</th>
           </tr>
         </thead>
         <tbody>
           {
-            carts?.map((cart, index) => {
+            showInCard?.map((cart, index) => {
               return (
                 <tr key={index}>
                   <td>{cart.title}</td>
-                  {/* <td>{cart.description}</td> */}
                   <td>₦{money.format(cart.price)}</td>
                   <td>
                     <Image
@@ -61,32 +68,44 @@ const Cart = () =>  {
                       alt={cart.title}
                     />
                   </td>
-                  <tr className="table__button">
-                    <Button onClick={() => handleRemove(cart.id)}>
-                      Remove Item
-                    </Button>
-                  </tr>
+                  <td>
+                    <div className="table__quan">
+                      <button 
+                        className="table__add table__add-icon"
+                        onClick={() => handleAddCart(cart)}
+                      >
+                        &#43;
+                      </button>
+                        <h1>
+                          {carts.filter((ca) => ca.id == cart.id).length}
+                        </h1>
+                      <button 
+                        className="table__add table__remove-icon"
+                        onClick={() => handleRemove(cart.id)}
+                      >
+                        &#x2212;
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               )
             })
           }
-          <tr>
-            <td></td>
-            <td>Total Price</td>
-            <td>
-              ₦{money.format(carTotal)}
-            </td>
-            <td>
-              <Button type="success">
-                Checkout {carts.length} Items
-              </Button>
-            </td>
-          </tr>
         </tbody>
       </table>
+      <div className="table__total">
+        <h1>
+          Total Price: ₦{money.format(carTotal)}
+        </h1>
+        <h1>
+          Total Item:  {carts.length}
+        </h1>
+        <Button type="success">
+          Checkout {carts.length} Items
+        </Button>
+      </div>
     </div>
   )
 };
 
 export default Cart;
-
