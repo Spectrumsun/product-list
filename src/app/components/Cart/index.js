@@ -81,7 +81,7 @@ const Cart = () =>  {
                         </h1>
                       <button 
                         className="table__add table__remove-icon"
-                        onClick={() => handleRemove(cart.id)}
+                        onClick={() => handleRemove(cart.uuid)}
                       >
                         &#x2212;
                       </button>

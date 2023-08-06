@@ -1,4 +1,5 @@
 import { useState, useContext, createContext } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import Navbar from '../components/NavBar';
 import ProductLists from '../components/ProductList';
 import Cart from '../components/Cart';
@@ -21,12 +22,20 @@ const LayoutWrapper = () => {
   const [sortBy, setSortBy] = useState('');
   
   const handleAddCart = (add) => {
-    setCarts([add, ...carts])
+    const addUuid = {
+      ...add,
+      uuid: uuidv4()
+    }
+    setCarts([addUuid, ...carts])
   };
+  console.log(carts, 'carts');
 
-  const handleRemove = (id) => {
-    const remove = carts.filter((cart) => cart.id !== id);
-    setCarts(remove);
+  const handleRemove = (uuidv4) => {
+    console.log(uuidv4, 'uuidv4');
+    console.log(carts, 'carts carts')
+    const remove = carts.filter((cart) => cart.uuid !== uuidv4);
+    console.log(remove, 'remove')
+    setCarts(remove)
   };
 
   const values = {
