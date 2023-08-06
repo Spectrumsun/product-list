@@ -29,7 +29,7 @@ li {
   list-style: none;
 }
 
-.section {
+.section-wrapper {
   max-width: 70%;
   margin: 50px auto;
 }

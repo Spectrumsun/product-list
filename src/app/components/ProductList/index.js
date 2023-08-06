@@ -1,22 +1,22 @@
-import { useContext } from 'react';
+import { useEffect } from 'react';
 import Carousel from '../Carousel';
 import StatSvg from '../Svg/Start';
-import { money, DataContext, url } from '../../helper';
-import LayoutWrapper from "../../LayoutWrapper";
-
+import { money, url } from '../../helper';
+import { useDataContext } from '@/app/LayoutWrapper';
+import Button from '../Button';
 import './index.scss';
-import { useEffect } from 'react';
+
 
 const ProductList = () => {
-  const values = useContext(DataContext);
+  const values = useDataContext();
   const { 
     productLists,
     carts,
-    setCarts,
-    setProductLists
+    handleAddCart,
+    handleRemove,
+    setProductLists,
   } = values;
-
-  console.log(values, 'values')
+  console.log(values, 'Product');
 
   useEffect(() => {
     const getData = async() => {
@@ -34,52 +34,50 @@ const ProductList = () => {
   },[]);
 
   return (
-      <div className="cards">
-        {
-          productLists.map((productList, index) => (
-            <div className="cards__content" key={index}>
-              <Carousel images={productList.images} /> 
-              <div className="cards__wrapper">
-                <div className="cards__texts">
-                  <span className="cards__name-container">
-                    <p 
-                      className="cards__title"
-                    >
-                      {productList.brand}: {productList.title}
-                    </p>
-                    <span className="cards__name">
-                      <StatSvg />
-                      <p>{productList.rating}</p>
-                    </span>
-                  </span>
+    <div className="cards">
+      {
+        productLists.map((productList, index) => (
+          <div className="cards__content" key={index}>
+            <Carousel images={productList.images} /> 
+            <div className="cards__wrapper">
+              <div className="cards__texts">
+                <span className="cards__name-container">
                   <p className="cards__title">
-                    Price: ₦{money.format(productList.price)}
+                    {productList.brand}: {productList.title}
                   </p>
-                </div>
-                <div className='cards__button-wrapper'>
-                  <button 
-                    className="cards__button cards__button-add"
-                    onClick={() => setCarts([...carts, productList])}
-                  >
-                    Add to cart
-                  </button>
-                  {
-                    carts.map((cart) => cart.id).includes(productList.id)
-                      ? <button 
-                          className="cards__button cards__button-remove"
-                          onClick={() => handleRemove(productList.id)}
-                        >
-                          Remove from cart
-                        </button>
-                      : null
-                  }
+                  <span className="cards__name">
+                    <StatSvg />
+                    <p>{productList.rating}</p>
+                  </span>
+                </span>
+                <p className="cards__title">
+                  Price: ₦{money.format(productList.price)}
+                </p>
+              </div>
+              <div className='cards__button-wrapper'>
+                <Button
+                  onClick={() => handleAddCart(productList)}
+                  type="success"
+                >
+                  Add to cart
+                </Button>
+                {
+                  carts.map((cart) => cart.id).includes(productList.id)
+                    ? <Button 
+                        onClick={() => handleRemove(productList.id)}
+                        type="remove"
+                      >
+                        Remove from cart
+                      </Button>
+                    : null
+                }
                 </div>
               </div>
             </div>
-            )
           )
-        }
-      </div>
+        )
+      }
+    </div>
   )
 };
 

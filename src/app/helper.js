@@ -6,6 +6,4 @@ export const money = new Intl.NumberFormat({
 });
 
 export const url = 'https://dummyjson.com';
-
-
-export const DataContext = createContext();
+ 

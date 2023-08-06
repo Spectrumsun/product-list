@@ -1,0 +1,35 @@
+.table {
+  &__table-list {
+    border-collapse: collapse;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  td,th {
+    padding: 20px;
+  }
+
+  tr {
+    background-color: #2B3035;
+    color: #ddd;
+
+  }
+
+  tr:hover {
+    background-color: #1B1E22;
+  }
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #212529;
+    color: white;
+  }
+
+  &__button {
+    display:table-cell;
+    margin-right: 10px;
+  }
+}

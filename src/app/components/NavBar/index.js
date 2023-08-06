@@ -1,18 +1,21 @@
-import Link from 'next/link'
+import { useDataContext } from '../../LayoutWrapper';
+import Button from '../Button';
 import './index.css';
 
 const Navbar = () => {
+  const values = useDataContext();
+  const { carts, setScreen } = values;
   return (
     <header className="header">
-      <h1 className="header-h1">Product App</h1>
-      <ul className="header-ul">
-        <Link 
-          className="header-li header-active"
-          href="/cart"
-        >
-          My cart
-        </Link>
-      </ul>
+      <button  onClick={() => setScreen('product')}>
+        <h1 className="header-h1">Product App</h1>
+      </button>
+      <Button 
+        onClick={() => setScreen('cart')}
+        type="success"
+      >
+        My cart:  {carts.length}
+      </Button>
     </header>
   )
 }
